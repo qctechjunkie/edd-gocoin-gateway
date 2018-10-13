@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>EDD - GoCoin Payment Gateway </title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+	<!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css" rel="stylesheet">
+</head>
+<body class="p-3 blue-grey">
+	<div class="container p-3 grey lighten-5 z-depth-1">
+		<h1 class="text-primary">EDD - GoCoin Payment Gateway Setup</h1>
+		<div class="row">
+			<div class="col m-3">
+				<p>Accept Bitcoin payments safe and easy on your Easy Digital Downloads website with GoCoin. With GoCoin, you can make taking Bitcoin and other blockchain currencies as easy as installing a plugin. Make more money by letting all of your customers pay. You receive money deposited to your bank account. Everyone wins! This document will show you how to setup and configure the extension.</p> 
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-4">
+				<div class="list-group" id="list-tab" role="tablist">
+					<a class="list-group-item list-group-item-action active" id="list-installation-list" data-toggle="list" href="#list-installation" role="tab" aria-controls="installation">Installation</a>
+					<a class="list-group-item list-group-item-action" id="list-setupconfiguration-list" data-toggle="list" href="#list-setupconfiguration" role="tab" aria-controls="setupconfiguration">Setup and Configuration</a>
+					<a class="list-group-item list-group-item-action" id="list-extensionsettings-list" data-toggle="list" href="#list-extensionsettings" role="tab" aria-controls="extensionsettings">Extension Settings</a>
+					<a class="list-group-item list-group-item-action" id="list-information-list" data-toggle="list" href="#list-information" role="tab" aria-controls="information">Additional Information</a>
+				</div>
+			</div>
+			
+			<div class="col-8">
+				<div class="tab-content" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="list-installation" role="tabpanel" aria-labelledby="list-installation-list">
+						<h3 class="text-primary">Installation</h3>
+						<div class="row">
+							<div class="col m-3">
+								<ol> 
+									<li>Download the extensions from your <a href="https://qctechjunkie.com/you-account/">QCTechJunkie</a> purchase</li> 
+									<li>From your WordPress site go to 'Plugins' > 'Add New' > 'Upload' and select the ZIP file you just downloaded</li> 
+									<li>Click 'Install Now' and then 'Activate'</li> 
+									<li>Go to 'Downloads' > 'Settings' > 'Payment Gateways' > 'Gateway Settings' and check GoCoin in the 'Payment Gateways' section</li> 
+								</ol>
+							</div>
+						</div>
+					</div>
+					
+					<div class="tab-pane fade" id="list-setupconfiguration" role="tabpanel" aria-labelledby="list-setupconfiguration-list">
+						<h3 class="text-primary">Setup and Configuration</h3> 
+						<div class="row">
+							<div class="col m-3">
+								
+								<p>You will need your GoCoin Merchant ID, given to you when you signed up for GoCoin. You can obtain these from the <a href="https://dashboard.gocoin.com/">GoCoin Dashboard</a> in the "Developers" section.</p>
+								<ol>
+									<li>Log into your WordPress site and go to 'Downloads' > 'Settings' > 'Payment Gateways' > 'GoCoin '</li>
+									<li>Enter in your Merchant ID into the 'Merchant ID' field.</li>
+									<img class="img-fluid border m-3 z-depth-1" src="https://qctechjunkie.s3.amazonaws.com/wp-content/uploads/2018/04/15161245/merchant-id-settings.png">
+									<li>Enter in your API Key ID into the 'API Key' field.</li>
+									<img class="img-fluid border m-3 z-depth-1" src="https://qctechjunkie.s3.amazonaws.com/wp-content/uploads/2018/04/15161236/api-key-settings.png">
+									<li>Last,click 'Save.'</li>
+								</ol>
+								
+							</div>
+						</div>
+						<div class="row">
+							<div class="col m-3">
+								<p>That’s it! You are now ready to start accepting Bitcoin via GoCoin!</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="tab-pane fade" id="list-extensionsettings" role="tabpanel" aria-labelledby="list-extensionsettings-list">
+						<h3 class="text-primary">Extension Settings</h3>
+						<div class="row">
+							<div class="col m-3">
+								<img class="img-fluid border m-3 z-depth-1" src="https://qctechjunkie.s3.amazonaws.com/wp-content/uploads/2018/04/15161243/gocoin-settings.png">
+								<ul class="list-style">
+									<li>Customer Message - This is the message displayed to customers during checkout when GoCoin payments is selected.</li>
+									<li>Merchant ID – This is the Merchant ID for your GoCoin account. Follow the steps above to get this.</li> 
+									<li>API Key - Uniquie key to identify your website along with your Merchant ID.</li> 
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+					<div class="tab-pane fade" id="list-information" role="tabpanel" aria-labelledby="list-information-list">
+						<h3 class="text-primary">Additional Information</h3>
+						<div class="row">
+							<div class="col m-3">
+								<p>When a shopper chooses the GoCoin payment method and places their order, they will be redirected to <a href="https://gateway.gocoin.com">https://gateway.gocoin.com</a> to pay. GoCoin will send a notification to your server which this plugin handles. Then the customer will be redirected to an order summary page.</p>
+								<ul class="list-style">
+									<li>
+										<p>                
+											<strong>
+												<em>CryptoCurrency Support</em>
+											</strong>
+										</p>
+										<p>This plugin supports all currencies that GoCoin supports</p>
+									</li>
+									<li>
+										<p>
+											<strong>
+												<em>Fiat Currency Support</em>
+											</strong>
+										</p>
+										<p>Your store can be used in with of the available currencies on Easy Digital Downloads.</p>
+									</li>
+									<li>
+										<p>
+											<strong>
+												<em>Order Status</em>
+											</strong>
+										</p>
+										<p>When an order is created, its status will be 'pending.'</p>
+										<p>When a payment is detected, the invoice is underpaid, the order status will stay in 'pending' status.</p>
+										<p>When a payment is detected, the invoice is paid in full, but no confirmed on the blockchain, the order status will be updated to 'processing.'</p>
+										<p>When all payments are paid in full and confirmed on the blockchain (Bitcoin Network), the order status will marked as 'complete.'</p>
+										<p>Any invalid payment will result in a status of 'failed'</p>
+									</li>
+									<li>
+										<p>
+											<strong>
+												<em>Having some issues?</em>
+											</strong>
+										</p>
+										<p>Submit a support ticket with <a href="https://qctechjunkie.com/contact">QCTechJunkie Customer Support</a> to have the developer review the issue.</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Optional JavaScript -->
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+  </body>
+</html>
