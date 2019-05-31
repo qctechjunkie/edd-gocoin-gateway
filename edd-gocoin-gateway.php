@@ -31,8 +31,8 @@ require_once('gocoin-util.php');
 */
 function edd_gocoin_register_gateway( $gateways ) {
   $gateways[ 'gocoin' ] = array(
-  'admin_label'   => 'GoCoin',
-  'checkout_label'=> __( 'GoCoin', 'edd_gocoin' ),
+    'admin_label'   => 'GoCoin',
+    'checkout_label'=> __( 'GoCoin', 'edd_gocoin' ),
   );
   return $gateways;
 
@@ -58,7 +58,7 @@ function edd_gocoin_cc_form() {
     <legend>
       <span>GoCoin Notice</span>
     </legend>
-    <p id="edd-gocoin-description"><?php echo trim( edd_get_option( 'gocoin_description' ) ) ?></p>
+      <p id="edd-gocoin-description"><?php echo trim( edd_get_option( 'gocoin_description' ) ) ?></p>
   </fieldset>
   <?php
   return;
@@ -91,15 +91,15 @@ function edd_process_payment($purchase_data) {
     * setup the payment details
     **********************************/
     $payment_data = array(
-    'price'        => $purchase_data['price'],
-    'date'         => $purchase_data['date'],
-    'user_email'   => $purchase_data['user_email'],
-    'purchase_key' => $purchase_data['purchase_key'],
-    'currency'     => $edd_options['currency'],
-    'downloads'    => $purchase_data['downloads'],
-    'cart_details' => $purchase_data['cart_details'],
-    'user_info'    => $purchase_data['user_info'],
-    'status'       => 'pending'
+      'price'        => $purchase_data['price'],
+      'date'         => $purchase_data['date'],
+      'user_email'   => $purchase_data['user_email'],
+      'purchase_key' => $purchase_data['purchase_key'],
+      'currency'     => $edd_options['currency'],
+      'downloads'    => $purchase_data['downloads'],
+      'cart_details' => $purchase_data['cart_details'],
+      'user_info'    => $purchase_data['user_info'],
+      'status'       => 'pending',
     );
 
     // record the pending payment
@@ -121,25 +121,25 @@ function edd_process_payment($purchase_data) {
 
       // Get the success url
       $return_url = add_query_arg( array(
-      'payment-confirmation' => 'gocoin',
-      'payment-id' => $payment_id
+        'payment-confirmation' => 'gocoin',
+        'payment-id' => $payment_id
       ), get_permalink( edd_get_option( 'success_page', false ) ) );
 
       $options = array(
-      "type"                  => 'bill',
-      "base_price"            => number_format( ( float ) $purchase_data[ 'price' ], 2 ),
-      "base_price_currency"   => $currency,
-      "callback_url"          => $listener_url,
-      "redirect_url"          => $return_url,
-      "order_id"              => $payment_id,
-      "customer_name"         => $purchase_data['user_info']['first_name'] . ' ' . $purchase_data['user_info']['last_name'],
-      "customer_address_1"    => $purchase_data['user_info']['address']['line1'],
-      "customer_address_2"    => $purchase_data['user_info']['address']['line2'],
-      "customer_city"         => $purchase_data['user_info']['address']['city'],
-      "customer_region"       => $purchase_data['user_info']['address']['state'],
-      "customer_postal_code"  => $purchase_data['user_info']['address']['zip'],
-      "customer_country"      => $purchase_data['user_info']['address']['country'],
-      "customer_email"        => $purchase_data[ 'user_info' ][ 'email' ],
+        "type"                  => 'bill',
+        "base_price"            => number_format( ( float ) $purchase_data[ 'price' ], 2 ),
+        "base_price_currency"   => $currency,
+        "callback_url"          => $listener_url,
+        "redirect_url"          => $return_url,
+        "order_id"              => $payment_id,
+        "customer_name"         => $purchase_data['user_info']['first_name'] . ' ' . $purchase_data['user_info']['last_name'],
+        "customer_address_1"    => $purchase_data['user_info']['address']['line1'],
+        "customer_address_2"    => $purchase_data['user_info']['address']['line2'],
+        "customer_city"         => $purchase_data['user_info']['address']['city'],
+        "customer_region"       => $purchase_data['user_info']['address']['state'],
+        "customer_postal_code"  => $purchase_data['user_info']['address']['zip'],
+        "customer_country"      => $purchase_data['user_info']['address']['country'],
+        "customer_email"        => $purchase_data[ 'user_info' ][ 'email' ],
       );
 
       // Sign invoice with access token, if this fails we should still allow user to check out.
@@ -216,95 +216,95 @@ function edd_process_gocoin_ipn() {
     return;
 
   } else {
-  $event_id     = $data -> id;
-  $event        = $data -> event;
-  $invoice      = $data -> payload;
-  $payload_arr  = get_object_vars($invoice) ;
+    $event_id = $data -> id;
+    $event = $data -> event;
+    $invoice = $data -> payload;
+    $payload_arr = get_object_vars($invoice) ;
 
-  ksort($payload_arr);
+    ksort($payload_arr);
 
-  $signature    = $invoice -> user_defined_8;
-  $sig_comp     = Util::sign($payload_arr, $key);
-  $status       = $invoice -> status;
-  $order_id     = (int) $invoice -> order_id;
+    $signature = $invoice -> user_defined_8;
+    $sig_comp = Util::sign($payload_arr, $key);
+    $status = $invoice -> status;
+    $order_id   = (int) $invoice -> order_id;
 
-  $payment = new EDD_Payment( $order_id );
+    $payment = new EDD_Payment( $order_id );
 
-  if (!$payment) {
-  $msg = "Payment with id: " . $order_id . " was not found. Event ID: " . $event_id;
-  edd_debug_log( 'GoCoin Callback Error: '. $msg );
-  return;
-
-  }
-
-  // Check that if a signature exists, it is valid
-  if (isset($signature) && ($signature != $sig_comp)) {
-  $msg = "Signature : " . $signature . "does not match for Order: " . $order_id ."$sig_comp        |    $signature ";
-
-  } elseif (empty($signature) || empty($sig_comp) ) {
-  $msg = "Signature is blank for Order: " . $order_id;
-
-  } elseif($signature == $sig_comp) {
-    switch($event) {
-      case 'invoice_created':
-      break;
-
-      case 'invoice_payment_received':
-        switch ($status) {
-          case 'ready_to_ship':
-            $msg = 'Order ' . $order_id .' is paid and awaiting payment confirmation on blockchain.';
-            $payment -> status = 'processing';
-            $payment -> add_note( "Invoice Status: ". $msg );
-            $payment -> save( );
-          break;
-
-          case 'paid':
-            $msg = 'Order ' . $order_id .' is paid and awaiting payment confirmation on blockchain.';
-            $payment -> status = 'processing';
-            $payment -> add_note( "Invoice Status: ". $msg );
-            $payment -> save( );
-          break;
-
-          case 'underpaid':
-            $msg = 'Order ' . $order_id .' is underpaid.';
-            $payment -> status = 'pending';
-            $payment -> add_note( "Invoice Status: ". $msg );
-            $payment -> save( );
-          break;
-
-        }
-      break;
-
-      case 'invoice_merchant_review':
-        $msg = 'Order ' . $order_id .' is under review. Action must be taken from the GoCoin Dashboard.';
-        $payment -> status = 'pending';
-        $payment -> add_note( "Invoice Status: ". $msg );
-        $payment -> save( );
-      break;
-
-      case 'invoice_ready_to_ship':
-        $msg = 'Order ' . $order_id .' has been paid in full and confirmed on the blockchain.';
-        $payment -> status = 'complete';
-        $payment -> add_note( "Invoice Status: ". $msg );
-        $payment -> save( );
-      break;
-
-      case 'invoice_invalid':
-        $msg = 'Order ' . $order_id . ' is invalid and will not be confirmed on the blockchain.';
-        $payment -> status = 'failed';
-        $payment -> add_note( "Invoice Status: ". $msg );
-        $payment -> save( );
-      break;
-
-      default:
-      $msg = "Unrecognized event type: ". $event;
+    if (!$payment) {
+      $msg = "Payment with id: " . $order_id . " was not found. Event ID: " . $event_id;
+      edd_debug_log( 'GoCoin Callback Error: '. $msg );
+      return;
 
     }
 
-    if (isset($msg)){
-      $msg .= ' Event ID: '. $event_id;
+    // Check that if a signature exists, it is valid
+    if (isset($signature) && ($signature != $sig_comp)) {
+      $msg = "Signature : " . $signature . "does not match for Order: " . $order_id ."$sig_comp        |    $signature ";
 
-    }
+    } elseif (empty($signature) || empty($sig_comp) ) {
+      $msg = "Signature is blank for Order: " . $order_id;
+
+    } elseif($signature == $sig_comp) {
+      switch($event) {
+        case 'invoice_created':
+        break;
+
+        case 'invoice_payment_received':
+          switch ($status) {
+            case 'ready_to_ship':
+              $msg = 'Order ' . $order_id .' is paid and awaiting payment confirmation on blockchain.';
+              $payment -> status = 'processing';
+              $payment -> add_note( "Invoice Status: ". $msg );
+              $payment -> save( );
+            break;
+
+            case 'paid':
+              $msg = 'Order ' . $order_id .' is paid and awaiting payment confirmation on blockchain.';
+              $payment -> status = 'processing';
+              $payment -> add_note( "Invoice Status: ". $msg );
+              $payment -> save( );
+            break;
+
+            case 'underpaid':
+              $msg = 'Order ' . $order_id .' is underpaid.';
+              $payment -> status = 'pending';
+              $payment -> add_note( "Invoice Status: ". $msg );
+              $payment -> save( );
+            break;
+
+          }
+        break;
+
+        case 'invoice_merchant_review':
+          $msg = 'Order ' . $order_id .' is under review. Action must be taken from the GoCoin Dashboard.';
+          $payment -> status = 'pending';
+          $payment -> add_note( "Invoice Status: ". $msg );
+          $payment -> save( );
+        break;
+
+        case 'invoice_ready_to_ship':
+          $msg = 'Order ' . $order_id .' has been paid in full and confirmed on the blockchain.';
+          $payment -> status = 'complete';
+          $payment -> add_note( "Invoice Status: ". $msg );
+          $payment -> save( );
+        break;
+
+        case 'invoice_invalid':
+          $msg = 'Order ' . $order_id . ' is invalid and will not be confirmed on the blockchain.';
+          $payment -> status = 'failed';
+          $payment -> add_note( "Invoice Status: ". $msg );
+          $payment -> save( );
+        break;
+
+        default:
+        $msg = "Unrecognized event type: ". $event;
+
+      }
+
+      if (isset($msg)){
+        $msg .= ' Event ID: '. $event_id;
+
+      }
 
     }
     edd_debug_log( 'GoCoin Callback: '. $msg );
