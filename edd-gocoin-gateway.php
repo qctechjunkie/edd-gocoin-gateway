@@ -3,7 +3,7 @@
 * Plugin Name: Easy Digital Downloads - GoCoin Payment Gateway
 * Plugin URI: https://qctechjunkie.com
 * Description: Provides Payment abilities with GoCoin for Easy Digital Downloads
-* Version: 1.0.2
+* Version: 1.0.3
 * Author: TechJunkie LLC
 * Author URI: https://qctechjunkie.com
 */
@@ -47,7 +47,7 @@ add_filter( 'edd_payment_gateways', 'edd_gocoin_register_gateway' );
 */
 if( class_exists( 'EDD_License' ) ) {
   // Instantiate the licensing / updater. Must be placed in the main plugin file
-  $license = new EDD_License( __FILE__, 'EDD - GoCoin Payment Gateway', '1.0.2', 'TechJunkie LLC', null, 'https://qctechjunkie.com' );
+  $license = new EDD_License( __FILE__, 'EDD - GoCoin Payment Gateway', '1.0.3', 'TechJunkie LLC', null, 'https://qctechjunkie.com' );
 
 }
 
