@@ -352,6 +352,16 @@ function edd_register_gocoin_gateway_settings( $gateway_settings ) {
     ),
 
     array(
+			'id'    => 'gocoin_webhook_description',
+			'type'  => 'descriptive_text',
+			'name'  => __( 'Webhooks', 'edds' ),
+			'desc'  =>
+				'<p>' . sprintf( __( 'In order for GoCoin to function completely, you must configure your gocoin webhooks. Visit your <a href="%s" target="_blank">account dashboard</a> to configure them. Please add a webhook endpoint for the URL below.', 'edds' ), 'https://gocoin.com/dashboard/a/integrations' ) . '</p>' .
+				'<p><strong>' . sprintf( __( 'Webhook URL: %s', 'edds' ), home_url( 'index.php?edd-listener=gocoin' ) ) . '</strong></p>' .
+				'<p>' . sprintf( __( 'See our <a href="%s">documentation</a> for more information.', 'edds' ), 'https://qctechjunkie.com/documentation/edd-gocoin-payment-gateway/' ) . '</p>'
+		),
+
+    array(
       'id'    => 'gocoin_merchant_id',
       'name'  => __( 'Merchant ID', 'easy-digital-downloads' ),
       'desc'  => __( 'Enter your GoCoin Merchant ID', 'edd_gocoin' ),
